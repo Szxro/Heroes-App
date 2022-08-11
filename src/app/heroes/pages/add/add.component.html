@@ -1,0 +1,77 @@
+<h1>{{hero.id ? 'Edit' : 'Add'}}
+    Hero <small>{{hero.superhero}}</small></h1>
+
+<div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="40px">
+    <div fxFlex="50" fxLayout="column">
+       <div fxLayout="row" fxLayoutGap="20px">
+        <mat-form-field fxFlex="100" fxFlex.xs="50">
+            <mat-label>Hero</mat-label>
+            <input 
+            matInput
+            [(ngModel)]="hero.superhero"
+            type="text"
+            required
+            />
+        </mat-form-field>
+        <mat-form-field fxFlex="100" fxFlex.xs="45">
+            <mat-label>Alter Ego</mat-label>
+            <input 
+            matInput
+            [(ngModel)]="hero.alter_ego"
+            type="text"
+            required
+            />
+        </mat-form-field>
+       </div>
+        <mat-form-field>
+            <mat-label>First Appearance</mat-label>
+            <input 
+            matInput
+            [(ngModel)]="hero.first_appearance"
+            type="text"
+            required
+            />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Characters</mat-label>
+            <input 
+            matInput
+            type="text"
+            [(ngModel)]="hero.characters"
+            required
+            />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select required
+            [(ngModel)]="hero.publisher"
+            >
+                <mat-option *ngFor="let item of publisher"
+                            [value]="item.id"
+                >{{item.desc}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Url Photo</mat-label>
+            <input 
+            matInput
+            type="url"
+            [(ngModel)]="hero.alt_img"
+            required
+            />
+        </mat-form-field>
+        <br>
+       <div fxLayout="row" fxLayoutGap="20px">
+        <button mat-raised-button color="warn" (click)="saveHeroe()"> 
+            Save Hero
+        </button>
+        <ng-template [ngIf]="hero.id">
+            <button mat-raised-button color="warn" (click)="deleteHero()"> 
+                Deleted Hero
+            </button>
+        </ng-template>
+       </div>
+    </div>
+    <div fxFlex="50">
+        <img [src]="hero | pipeImage" [alt]="hero.superhero" class="img__info"/>
+    </div>
+</div>

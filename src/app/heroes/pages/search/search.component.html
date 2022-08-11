@@ -1,0 +1,63 @@
+<div fxLayout="column">
+    <div>
+        <h1>Search Heroes</h1>
+        <mat-divider></mat-divider>
+    </div>
+    
+    <div fxLayout="column">
+        <h3>Searcher</h3>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Hero Name</mat-label>
+            <input type="text"
+                   placeholder="Search a Hero"
+                   aria-label="Hero Name"
+                   matInput
+                   [(ngModel)]="value"
+                   (input)="getValue(value)"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption
+             #auto="matAutocomplete"
+             (optionSelected)="setValue($event)"
+             >
+              <mat-option *ngFor="let item of heroes" [value]="item">
+                {{item.superhero}}
+              </mat-option>
+              <mat-option value="" *ngIf="heroes.length === 0 && value.length > 0">
+                Dont find anything about {{value}}
+              </mat-option>
+        </mat-autocomplete>
+          </mat-form-field>
+    </div>
+</div>
+
+<ng-template [ngIf]="!heroesValue" [ngIfElse]="Hero" >
+    <div>
+        <h1>Waiting for the selected Hero......</h1>
+    </div>
+</ng-template>
+
+
+<ng-template #Hero>
+    <div fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutGap="30px"
+    >
+    <div fxFlex="50">
+        <h1>{{heroesValue.superhero}}<small>- {{heroesValue.alter_ego}}</small></h1>
+        <mat-divider></mat-divider>
+        <br>
+            <img mat-card-image [src]="heroesValue | pipeImage" [alt]="heroesValue.superhero" class="img__info">
+    </div>
+    <div fxFlex="50" fx>
+        <h1>{{heroesValue.publisher}}</h1>
+        <mat-divider></mat-divider>
+        <mat-list>
+            <mat-list-item>{{heroesValue.first_appearance}}</mat-list-item>
+            <mat-list-item>{{heroesValue.characters}}</mat-list-item>
+            <mat-list-item>{{heroesValue.publisher}}</mat-list-item>
+            <mat-list-item>{{heroesValue.alter_ego}}</mat-list-item>
+        </mat-list>
+    </div>
+</div>
+</ng-template>
+
